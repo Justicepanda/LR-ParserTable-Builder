@@ -1,0 +1,130 @@
+<compilation-unit> ::= <workspace-declarations>
+
+//Workspace
+<workspace-declarations> ::= <workspace-declaration> <workspace-declarations>
+<workspace-declarations> ::= NULL
+<workspace-declaration> ::= [ WORKSPACE <workspace-name> ] <workspace-body> [ ENDWORKSPACE ]
+<workspace-name> ::= <id>
+<workspace-body> ::= <include-statements> <class-declarations>
+
+//IDs
+<ids> ::= <id> <ids>
+<ids-tail> ::= , <id> <ids>
+<ids-tail> ::= NULL
+//<id>::=regex([a-zA-Z$_][a-zA-Z0-9$_]*)
+
+//Modifiers
+<modifiers> ::= <vis-modifier> <stat-modifier>
+<vis-modifier> ::= private | public | protected | NULL
+<stat-modifier> ::= static | NULL
+
+//Types
+<type> ::= INT | DOUBLE | FLOAT | BYTE | CHAR | STRING | BOOL
+<type> ::= NULL
+
+//Arrays
+<array-brackets> ::= [ <expr> ] <array-brackets>
+<array-brackets> ::= NULL
+
+//Include-Statments
+<include-statements> ::= <include-statement> <include-statements>
+<include-statements> ::= NULL
+<include-statements> ::= includes <id> ;
+
+//Classes
+<class-declarations> ::= <class-declaration> <class-declarations>
+<class-declarations> ::= NULL
+<class-declaration> ::= [ CLASS <id> : <modifiers> ] <implements> <class-body> [ ENDCLASS ]
+<implements> ::= implements <id>
+<implements> ::= NULL
+<class-body> ::= <variables> <constructors> <functions> <properties>
+
+//Variables
+<variables> ::= <variable> <variables>
+<variables> ::= NULL
+<variable> ::= <modifiers> <type> <array-brackets> <ids> ;
+<variable> ::= <modifiers> <type> <array-brackets> <id> = <expr> ;
+<variable> ::= <modifiers> <type> <array-brackets> <id> = new <id> ( <expr-list> ) ;
+
+//Constructor-Declarations
+<constructors> ::= <constructor> <constructors>
+<constructors> ::= NULL
+<constructor> ::= [ CON <id> : <modifiers> ] ( <parameters> ) <constructor-body> [ ENDCON ]
+<constructor-body> ::= <statements>
+
+//Function-Declarations
+<functions> ::= <function> <functions>
+<functions> ::= NULL
+<function> ::= [ FUNC <id> : <modifiers> ] <return> ( <parameters> ) <function-body> [ ENDFUNC ]
+<return> ::= void | <type>
+<function-body> ::= <statements>
+
+//Property-Declarations
+<properties> ::= <property> <properties>
+<properties> ::= NULL
+<property> ::= [ PROP <id> : <modifiers> ] <get> <set> [ ENDPROP ]
+<get> ::= [ GET ] <statements> return <expr> ; [ ENDGET ]
+<get> ::= NULL
+<set> ::= [ SET ] <statements> <id> = <expr> [ ENDSET ]
+<set> ::= NULL
+
+//Statements
+<statements> ::= <statement> <statements>
+<statements> ::= NULL
+<statement> ::= <id> ( <expr-list> ) ;
+<statement> ::= <type> <id> ;
+<statement> ::= <type> <id> <array-brackets> = <expr> ;
+<statement> ::= <id> <id> <object-assignment> ;
+<statement> ::= [ IF <expr> ] <statements> <elseifs> <else>
+<elseifs> ::= <elseif> <elseifs>
+<elseifs> ::= NULL
+<elseif> ::= [ ELSEIF <expr> ] <statements> [ ENDELSEIF ]
+<else> ::= [ ELSE ] <statements> [ ENDELSE ]
+<else> ::= NULL
+<statement> ::= [ SWITCH <id> ] <cases> [ ENDSWITCH ]
+<cases> ::= <case> <cases>
+<cases> ::= NULL
+<case> ::= CASE <expr>: <statements>
+<case> ::= CASE default: <statements>
+<statement> ::= [ FOR <type> <array-brackets> <id> = <expr> : <expr> : <expr> ] <statements> [ ENDFOR ]
+<statement> ::= [ WHILE <expr> ] <statements> [ ENDWHILE ]
+<object-assignment> ::= = new <id> ( <expr-list> )
+<object-assigment> ::= NULL
+
+//Expression
+<expr-list> ::= <expr> <expr-list-tail>
+<expr-list-tail> ::= , <expr> <expr-list-tail>s
+<expr-list-tail> ::= NULL
+
+<expr> ::= <binterm>
+<expr> ::= - <expr>
+
+<binterm> ::= <ineqterm> <binop> <ineqterm>
+<binterm> ::= <ineqterm>
+<binop> ::= |
+<binop> ::= &
+
+<ineqterm> ::= <addterm> <ineqop> <addterm>
+<ineqterm> ::= <addterm>
+<ineqop> ::= != | == | < | > | <= | >=
+
+<addterm> ::= <multterm> <addop> <multterm>
+<addterm> ::= <multterm>
+<addop> ::= + | -
+
+<multterm> ::= <factor> <multop> <factor>
+<multterm> ::= <factor>
+<multterm> ::= NULL
+<multop> ::= * | /
+
+<factor> ::= <const>
+<factor> ::= ( <expr> )
+<factor> ::= <id> <array-brackets> <id-call>
+<factor> ::= <id> ( <expr-list> ) <id-call>
+<id-call> ::= . <id> <id-call>
+<id-call> ::= . <id> ( <expr-list> ) <id-call>
+<id-call> ::= NULL
+<const> ::= INTLIT
+<const> ::= STRLIT
+<const> ::= NIL
+<const> ::= - INTLIT
