@@ -1,6 +1,7 @@
 package generator;
 
 import scanner.Token;
+import scanner.TokenType;
 
 public class Rule 
 {
@@ -35,7 +36,13 @@ public class Rule
 	
 	public String toString()
 	{
-		String toString = leftToken.getValue();
+		String toString = "";
+		if(leftToken.getType().equals(TokenType.COMMENTS))
+			toString = leftToken.getValue();
+		else if(leftToken.getType().equals(TokenType.NONE))
+			toString = leftToken.getValue();
+		else
+			toString = leftToken.getValue() + " -> ";
 
 		if(rightTokens != null)
 		{

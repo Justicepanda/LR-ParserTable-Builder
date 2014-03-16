@@ -10,15 +10,19 @@ public class Main
 	{
 		Rule[] rules = new Scanner().Scan(args[0]);
 		
-		for(int i = 0; i < rules.length; i++)
+		
+		if(Preferences.debugMode())
 		{
-			System.out.println(rules[i].toString());
+			for(int i = 0; i < rules.length; i++)
+			{
+				System.out.println(rules[i].toString());
+			}
 		}
 		
-		/**TableGenerator generator = new TableGenerator(rules);
+		TableGenerator generator = new TableGenerator(rules);
 		if(generator.generateTable(args[1]))
 		{
-			System.out.println("Table Generated!");
-		}**/
+			System.out.println("Table Generated to file " + args[1]);
+		}
 	}
 }

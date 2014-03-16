@@ -31,7 +31,7 @@ public class Scanner
 			
 			if(lines != null)
 			{
-				for(int i = 0; i < rules.length; i++)
+				for(int i = 0; i < lines.length; i++)
 				{
 					rules[i] = new Rule(lines[i]);
 				}

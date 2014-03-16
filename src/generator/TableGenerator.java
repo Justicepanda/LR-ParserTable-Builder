@@ -1,5 +1,7 @@
 package generator;
 
+import dfa.*;
+
 public class TableGenerator 
 {
 	Rule[] rules;
@@ -11,6 +13,9 @@ public class TableGenerator
 	
 	public boolean generateTable(String fileName)
 	{
+		//First create the LR(1) DFA
+		Dfa stateDiagram = new Dfa(rules);
+		
 		return true;
 	}
 }

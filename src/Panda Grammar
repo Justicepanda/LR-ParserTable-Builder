@@ -15,11 +15,21 @@
 
 //Modifiers
 <modifiers> ::= <vis-modifier> <stat-modifier>
-<vis-modifier> ::= private | public | protected | NULL
-<stat-modifier> ::= static | NULL
+<vis-modifier> ::= private 
+<vis-modifier> ::= public 
+<vis-modifier> ::= protected
+<vis-modifier> ::= NULL
+<stat-modifier> ::= static
+<stat-modifier> ::= NULL
 
 //Types
-<type> ::= INT | DOUBLE | FLOAT | BYTE | CHAR | STRING | BOOL
+<type> ::= INT
+<type> ::= DOUBLE
+<type> ::= FLOAT
+<type> ::= BYTE
+<type> ::= CHAR
+<type> ::= STRING
+<type> ::= BOOL
 <type> ::= NULL
 
 //Arrays
@@ -56,7 +66,8 @@
 <functions> ::= <function> <functions>
 <functions> ::= NULL
 <function> ::= [ FUNC <id> : <modifiers> ] <return> ( <parameters> ) <function-body> [ ENDFUNC ]
-<return> ::= void | <type>
+<return> ::= void
+<return> ::= <type>
 <function-body> ::= <statements>
 
 //Property-Declarations
@@ -106,16 +117,23 @@
 
 <ineqterm> ::= <addterm> <ineqop> <addterm>
 <ineqterm> ::= <addterm>
-<ineqop> ::= != | == | < | > | <= | >=
+<ineqop> ::= !=
+<ineqop> ::= ==
+<ineqop> ::= <
+<ineqop> ::= >
+<ineqop> ::= <=
+<ineqop> ::= >=
 
 <addterm> ::= <multterm> <addop> <multterm>
 <addterm> ::= <multterm>
-<addop> ::= + | -
+<addop> ::= +
+<addop> ::= -
 
 <multterm> ::= <factor> <multop> <factor>
 <multterm> ::= <factor>
 <multterm> ::= NULL
-<multop> ::= * | /
+<multop> ::= *
+<multop> ::= /
 
 <factor> ::= <const>
 <factor> ::= ( <expr> )
